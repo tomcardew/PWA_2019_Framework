@@ -1,0 +1,10 @@
+{
+    "database" : {
+        "mysql": {
+            "server": "127.0.0.1",
+            "name": "practica1",
+            "user": "root",
+            "password": ""
+        }
+    }
+}

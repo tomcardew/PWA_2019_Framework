@@ -1,6 +1,7 @@
 <?php
 
 require 'Main.php';
+require 'Models/Model.php';
 
 class Home extends Main {
 	
@@ -9,6 +10,7 @@ class Home extends Main {
 	}
 
 	public function load() {
+		$obj = new Model();
 		$this->loadView('main');
 	}
 
