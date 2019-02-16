@@ -12,7 +12,7 @@ if(isset($argv[1])){
                 create_table($i+1, $db);
             }
         }else{
-            echo "You must set db name"
+            echo "You must set db name";
         }
 	}
 }
