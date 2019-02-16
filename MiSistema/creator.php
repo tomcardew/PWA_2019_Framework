@@ -9,7 +9,7 @@ if(isset($argv[1])){
             echo "\n\nInsert number of tables: ";
             $ntablas = stream_get_line(STDIN, 1024, PHP_EOL);
             for($i=0; $i<$ntablas; $i++){
-                create_table($i+1, $db);
+                create_table($i+1, $argv[2]);
             }
         }else{
             echo "You must set db name";
