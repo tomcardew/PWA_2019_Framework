@@ -2,14 +2,17 @@
 
 if(isset($argv[1])){
 	if($argv[1] == "database"){
-		echo "Database setup started...\n";
-		echo "\n\nInsert database name: ";
-        $db = stream_get_line(STDIN, 1024, PHP_EOL);
-        create_database($db);
-        echo "\n\nInsert number of tables: ";
-        $ntablas = stream_get_line(STDIN, 1024, PHP_EOL);
-        for($i=0; $i<$ntablas; $i++){
-            create_table($i+1, $db);
+        echo "Database setup started...\n";
+        if(isset($argv[2])){
+            echo "\n\nCreating " . $argv[2] . " database...";
+            create_database($argv[2]);
+            echo "\n\nInsert number of tables: ";
+            $ntablas = stream_get_line(STDIN, 1024, PHP_EOL);
+            for($i=0; $i<$ntablas; $i++){
+                create_table($i+1, $db);
+            }
+        }else{
+            echo "You must set db name"
         }
 	}
 }
