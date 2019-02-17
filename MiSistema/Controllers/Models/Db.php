@@ -1,12 +1,12 @@
 <?php
 
-class Model{
+class Db{
 
-    private $db = "";
-    private $server = "";
-    private $dbname = "";
-    private $user = "";
-    private $pass = "";
+    protected $db = "";
+    protected $server = "";
+    protected $dbname = "";
+    protected $user = "";
+    protected $pass = "";
 
     private $conn = NULL;
 
@@ -14,6 +14,7 @@ class Model{
 
     public function __construct() {
         $this->set_up_connection();
+        echo "Db class";
 	}
 
     private function set_up_connection(){

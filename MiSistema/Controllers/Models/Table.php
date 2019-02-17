@@ -1,31 +1,28 @@
 <?php
 
-class Table extends Model{
+abstract class Table extends Db{
 
-    private $table_name = "table";
+    protected $sql = "";
 
-    private $id = 0;
-    private $name = "";
-
-    public function __construct($id, $name){
-        $this->id = $id;
-        $this->name = $name;
+    public function __construct(){
+        create_table();
     }
 
-    public function get_id(){
-        return $this->id;
-    }
+    protected function create_table(){
+        // Create connection
+        $conn = new mysqli("localhost", "root", "", $this->dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-    public function get_name(){
-        return $this->name;
-    }
+        if ($conn->query($this->sql) === TRUE) {
+            echo "\nTable $name created successfully";
+        } else {
+            echo "\nError creating table: " . $conn->error;
+        }
 
-    public function set_id($id){
-        $this->id = $id;
-    }
-
-    public function set_name($name){
-        $this->name = $name;
+        $conn->close();
     }
 
 }

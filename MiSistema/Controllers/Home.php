@@ -10,7 +10,7 @@ class Home extends Main {
 	}
 
 	public function load() {
-		$obj = new Model();
+		$obj = new Db();
 		$this->loadView('main');
 	}
 

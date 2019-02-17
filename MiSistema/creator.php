@@ -70,7 +70,7 @@ function create_table($nt, $db_name){
     } 
 
     // sql to create table
-    $sql = "CREATE TABLE $name (";
+    $sql = "CREATE TABLE IF NOT EXISTS $name (";
     // creating columns dinamically
     for($i=0; $i<count($columns); $i++){
         if($i==(count($columns) - 1)){
@@ -87,6 +87,19 @@ function create_table($nt, $db_name){
     }
 
     $conn->close();
+
+    //Table file creation
+    $file = fopen("Controllers/Models/$name.php", "w") or die("Unable to create file");
+    $content = "<?php\nclass $name extends Table{\n"; /*\n}\n?>*/
+    for($i=0; $i<count($columns); $i++){
+        $type = "0";
+        if($columns[$i][1] == "text"){
+            $type = "\"\"";
+        }
+        $content = $content . "\tpublic $" . $columns[$i][0] . " = $type;\n";
+    }
+    $content = $content . "\n\tpublic function __construct(){\n\t\t\$this->sql = \"$sql\";\n\t\t\$this->dbname = \"$db_name\";\n\t}\n}\n?>";
+    fwrite($file, $content);
 }
 
 ?>
