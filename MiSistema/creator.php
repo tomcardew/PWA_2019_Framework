@@ -90,7 +90,7 @@ function create_table($nt, $db_name){
 
     //Table file creation
     $file = fopen("Controllers/Models/$name.php", "w") or die("Unable to create file");
-    $content = "<?php\nclass $name extends Table{\n"; /*\n}\n?>*/
+    $content = "<?php\nrequire 'Main.php';\n\nclass $name extends Table{\n"; /*\n}\n?>*/
     for($i=0; $i<count($columns); $i++){
         $type = "0";
         if($columns[$i][1] == "text"){
