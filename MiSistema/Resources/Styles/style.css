@@ -1,18 +1,17 @@
 body {
-    background-color: blueviolet;
+    margin-top: 100px;
     box-sizing: content-box;
 }
 
 h1 {
-    color: white;
+    color: #252525;
 }
 
-h4 {
-    color: #e0e0e0;
-    font-weight: bold;
+.buttons {
+    margin-top: 100px;
 }
 
-p {
-    color: rgb(134, 95, 95);
-    font-family: Arial, Helvetica, sans-serif;
+button {
+    background-color: #252525;
+    width: 200px;
 }

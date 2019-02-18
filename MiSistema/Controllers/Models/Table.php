@@ -1,5 +1,7 @@
 <?php
 
+require 'Models/Db.php';
+
 abstract class Table extends Db{
 
     protected $sql = "";

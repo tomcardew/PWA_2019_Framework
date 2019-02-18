@@ -14,7 +14,6 @@ class Db{
 
     public function __construct() {
         $this->set_up_connection();
-        echo "Db class";
 	}
 
     private function set_up_connection(){

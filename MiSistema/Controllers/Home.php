@@ -1,7 +1,7 @@
 <?php
 
 require 'Main.php';
-require 'Models/Model.php';
+require 'Models/Db.php';
 
 class Home extends Main {
 	
