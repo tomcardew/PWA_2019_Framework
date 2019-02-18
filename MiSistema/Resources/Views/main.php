@@ -24,7 +24,7 @@
 		<button type="button" class="btn btn-dark">Home</button>
     </div>
     	<div class="col-sm d-flex justify-content-center">
-	<button type="button" class="btn btn-dark">Database</button>
+	<button id="btn_db" type="button" class="btn btn-dark">Database</button>
     </div>
     <div class="col-sm d-flex justify-content-start">
 		<button type="button" class="btn btn-dark">Learn more</button>
