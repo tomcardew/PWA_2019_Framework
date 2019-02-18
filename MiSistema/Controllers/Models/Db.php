@@ -2,20 +2,19 @@
 
 class Db{
 
-    protected $db = "";
-    protected $server = "";
-    protected $dbname = "";
-    protected $user = "";
-    protected $pass = "";
+    //Clase de conexión, debe contener únicamente lo necesario para conectarse y cerrar la conexión
+    //a la base de datos
 
-    private $conn = NULL;
-
-    public $table = "";
+    protected static $dbs = "";
+    protected static $server = "";
+    protected static $dbname = "";
+    protected static $user = "";
+    protected static $pass = "";
 
     public function __construct() {
         $this->set_up_connection();
-	}
-
+    }
+    
     private function set_up_connection(){
         //Read external settings json file
         $string = file_get_contents('/../../settings.json', true);
@@ -42,59 +41,13 @@ class Db{
     }
 
     public function connect(){
-        if($this->db == "mysql"){
-            $this->conn = new mysqli($this->server, $this->user, $this->pass);
-            if($this->conn->connect_error) {
-                die("Connection failed: " . $this->conn->connect_error);
-            }
+        $this->pass = "";
+        $conn = new mysqli($this->server, $this->user, $this->pass);
+        if($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
+        return $conn;
     }
-
-    //Close connections stablished between database and application
-    public function close_connection(){
-        $this->conn->close();
-    }
-
-    public function select_from_table($table, $columns, $conditions){
-        $col = "";
-        if(sizeof($columns)==0){
-            $col = "*";
-        }else{
-            foreach($columns as &$value){
-                if($col == ""){
-                    $col = $value;
-                }else{
-                    $col = $col . ", " . $value;
-                }
-            }
-        }
-        $qry = "";
-        if($conditions == null){
-            $qry = "SELECT $col FROM $table";
-        }else{
-            $qry = "SELECT $col FROM $table WHERE $conditions";
-        }
-        // Get results
-        $result = $this->conn->query($qry);
-        if($result->num_rows > 0){
-            return $result;
-        }else{
-            return null;
-        }
-    }
-
-    public function insert_into(){
-
-    }
-
-    public function delete_where(){
-
-    }
-
-    public function update_where(){
-        
-    }
-
 }
 
 ?>

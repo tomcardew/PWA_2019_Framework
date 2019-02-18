@@ -1,30 +1,42 @@
 <?php
 
-require 'Models/Db.php';
+require 'Db.php';
 
-abstract class Table extends Db{
+class Table extends Db{
 
-    protected $sql = "";
+    //Debo especificar nombre de la tabla, array de columnas y funciones para las operaciones
+    //SCRUD y estas deben ser genéricas
+    private $conn = null;
 
-    public function __construct(){
-        create_table();
+    protected $table; //Table name
+    protected $columns; //Columns array
+
+    function __construct(){
+        parent::__construct();
     }
 
-    protected function create_table(){
-        // Create connection
-        $conn = new mysqli("localhost", "root", "", $this->dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        if ($conn->query($this->sql) === TRUE) {
-            echo "\nTable $name created successfully";
-        } else {
-            echo "\nError creating table: " . $conn->error;
-        }
-
+    public function select(){
+        $conn = $this->connect();
+        $qry = "SELECT *  FROM $this->table";
+        $result = $conn->query($qry);
         $conn->close();
+        return $result;
+    }
+
+    public function selectColumns($columns, $condition){
+        $conn = $this->connect();
+        $qry = "SELECT ";
+        for($i=0; $i<sizeof($columns); $i++){
+            if($i == (sizeof($columns)-1)){
+                $qry .= $columns[$i];
+            }else{
+                $qry .= $columns[$i] . ", ";
+            }
+        }
+        $qry = $qry . " FROM $this->table WHERE $condition";
+        $result = $conn->query($qry);
+        $conn->close();
+        return $result;
     }
 
 }

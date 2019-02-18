@@ -98,7 +98,15 @@ function create_table($nt, $db_name){
         }
         $content = $content . "\tpublic $" . $columns[$i][0] . " = $type;\n";
     }
-    $content = $content . "\n\tpublic function __construct(){\n\t\t\$this->sql = \"$sql\";\n\t\t\$this->dbname = \"$db_name\";\n\t}\n}\n?>";
+    $columns_array = "";
+    for($i=0; $i<count($columns); $i++){
+        if($i==count($columns)-1){  
+            $columns_array .= "'" . $columns[$i][0] . "'";
+        }else{
+            $columns_array .= "'" . $columns[$i][0] . "', ";
+        }
+    }
+    $content = $content . "\n\tpublic function __construct(){\n\t\t\$this->table = \"$name\";\n\t\t\$this->dbname = \"$db_name\";\n\t\t\$this->columns=[$columns_array];\n\t}\n}\n?>";
     fwrite($file, $content);
 }
 
