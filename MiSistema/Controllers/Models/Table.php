@@ -8,7 +8,7 @@ class Table extends Db{
     //SCRUD y estas deben ser genéricas
     private $conn = null;
 
-    protected $table; //Table name
+    protected $table = "tabla"; //Table name
     protected $columns; //Columns array
 
     function __construct(){
@@ -37,6 +37,19 @@ class Table extends Db{
         $result = $conn->query($qry);
         $conn->close();
         return $result;
+    }
+
+    public function insertInto($data){ //Array with values to insert
+        $conn = $this->connect();
+        $qry = "INSERT INTO $this->table VALUES(";
+        for($i=0; $i<sizeof($data); $i++){
+            if($i == (sizeof($data)-1)){
+                $qry .= $data[$i] . ")";
+            }else{
+                $qry .= $data[$i] . ", ";
+            }
+        }
+        
     }
 
 }
