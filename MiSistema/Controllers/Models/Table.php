@@ -49,7 +49,37 @@ class Table extends Db{
                 $qry .= $data[$i] . ", ";
             }
         }
-        
+        if ($conn->query($qry) === TRUE) {
+            $conn->close();
+            return true;
+        } else {
+            $conn->close();
+            return false;
+        }
+    }
+
+    public function deleteWhere($condition){ //String with condition, example: 'id = 2'
+        $conn = $this->connect();
+        $qry = "DELETE FROM $this->table WHERE $condition";
+        if ($conn->query($qry) === TRUE) {
+            $conn->close();
+            return true;
+        } else {
+            $conn->close();
+            return false;
+        }
+    }
+
+    public function updateWhere($set, $condition){ //Example: "lastname='Jim'","id=2"
+        $conn = $this->connect();
+        $qry = "UPDATE $this->table SET $set WHERE $condition";
+        if ($conn->query($qry) === TRUE) {
+            $conn->close();
+            return true;
+        } else {
+            $conn->close();
+            return false;
+        }
     }
 
 }
