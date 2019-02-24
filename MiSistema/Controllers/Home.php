@@ -1,8 +1,6 @@
 <?php
 
 require 'Main.php';
-// require 'Models/Db.php';
-require 'Models/Table.php';
 
 class Home extends Main {
 	
