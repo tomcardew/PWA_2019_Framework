@@ -45,7 +45,11 @@ class Db_table extends Db{
                 $qry .= $columns[$i] . ", ";
             }
         }
-        $qry = $qry . " FROM $this->table WHERE $condition";
+        if($condition==""){
+            $qry = $qry . " FROM $this->table";
+        }else{
+            $qry = $qry . " FROM $this->table WHERE $condition";
+        }
         $result = $conn->query($qry);
         $num_col = mysqli_num_fields($result);
         $res = array();
