@@ -2,7 +2,7 @@
 
 require 'Db.php';
 
-class Table extends Db{
+class Db_table extends Db{
 
     //Debo especificar nombre de la tabla, array de columnas y funciones para las operaciones
     //SCRUD y estas deben ser genéricas
