@@ -42,7 +42,7 @@ class Db{
 
     public function connect(){
         $this->pass = "";
-        $conn = new mysqli($this->server, $this->user, $this->pass);
+        $conn = new mysqli("localhost", "root", $this->pass, $this->dbname);
         if($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }

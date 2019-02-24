@@ -19,8 +19,20 @@ class Db_table extends Db{
         $conn = $this->connect();
         $qry = "SELECT *  FROM $this->table";
         $result = $conn->query($qry);
+        $num_col = mysqli_num_fields($result);
+        $res = array();
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_row($result)) {
+                $tmp = array();
+                for($i=0; $i<$num_col; $i++){
+                    array_push($tmp, $row[$i]);
+                }
+                array_push($res, $tmp);
+            }
+        }
         $conn->close();
-        return $result;
+        return $res;
     }
 
     public function selectColumns($columns, $condition){
@@ -35,8 +47,20 @@ class Db_table extends Db{
         }
         $qry = $qry . " FROM $this->table WHERE $condition";
         $result = $conn->query($qry);
+        $num_col = mysqli_num_fields($result);
+        $res = array();
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_row($result)) {
+                $tmp = array();
+                for($i=0; $i<$num_col; $i++){
+                    array_push($tmp, $row[$i]);
+                }
+                array_push($res, $tmp);
+            }
+        }
         $conn->close();
-        return $result;
+        return $res;
     }
 
     public function insertInto($data){ //Array with values to insert
