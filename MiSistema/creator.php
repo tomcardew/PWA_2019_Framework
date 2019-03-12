@@ -1,6 +1,6 @@
 <?php
 
-if(isset($argv[1])){
+if(isset($argv[1])){ //Checo que el php se llame con php creator.php database $nombre
 	if($argv[1] == "database"){
         echo "Database setup started...\n";
         if(isset($argv[2])){
@@ -14,7 +14,40 @@ if(isset($argv[1])){
         }else{
             echo "You must set db name";
         }
-	}
+    }else if ($argv[1] == "view"){ //Checo que el php se llame php creator.php view $nombre
+        echo "Creating view...\n";
+        create_view($argv[2]);
+        echo "View created\n";
+    }
+}
+
+function create_view($view_name){
+    //View file creation
+    echo "\n\nInsert name of the view: ";
+    $vname = stream_get_line(STDIN, 1024, PHP_EOL);
+    $file = fopen("Resources/Views/$view_name.php", "w") or die("Unable to create file");
+    $content =
+    "<!DOCTYPE html>
+    <html>
+    <head>
+        <title>$vname</title>
+        <style>
+            <?php include_once '/../Styles/bootstrap.min.css' ?>
+            <?php include_once '/../Styles/style.css' ?>
+        </style>
+    </head>
+    <body>
+        <div class='row'>
+            <div class='col-sm d-flex justify-content-center'>
+                <h1>Bienvenido a la vista $vname</h1>
+            </div>
+        </div>
+    </body>
+    <script>
+	    <?php include_once '/../Scripts/bootstrap.min.js' ?>
+    </script>
+    </html>";
+    fwrite($file, $content);
 }
 
 function create_database($db_name){
